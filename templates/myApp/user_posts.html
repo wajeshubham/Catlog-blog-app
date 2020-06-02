@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="alert alert-info mb-1" style="margin-top:1rem;"><h6 style="font-weight:bold;">Posts by: {{view.kwargs.username}}</h6></div>
+{% for post in posts %}
+<div class="shadow mb-4 mt-2 bg-white rounded">
+    <div class="card promoting-card mt-3">
+        <div class="card-body d-flex flex-row">
+            <img src="{{post.author.profile.profile_pic.url}}" class="rounded-circle mr-3" height="50px" width="50px"
+                 alt="avatar">
+            <div>
+                <h4 class="card-title font-weight-bold mb-2">{{post.author}}</a></h4>
+                <p class="card-text">{{post.date | date:"F d, Y"}}</p>
+            </div>
+        </div>
+         <img src="{{post.image.url}}" class="card-img-top" alt="...">
+
+        <div class="card-body d-flex flex-row ml-4">
+            <h4 style="color:black; font-weight:bold">{{post.title}}</h4>
+        </div>
+        <div class="card-body ml-4">
+            <p><h6>{{post.content| linebreaksbr}}</h6></p>
+        </div>
+          <div class="card-body d-flex flex-row ml-4">
+            <form action="{% url 'like' post.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary mr-2" name="post_like" value="{{post.pk}}">
+                    Like <span class="badge badge-light">{{post.likes.count}}</span>
+                    <span class="sr-only">unread messages</span>
+                </button>
+            </form>
+            <form action="{% url 'comment' post.pk %}" method="get">
+                <button type="submit" class="btn btn-primary mr-2">
+                    Comment <span class="badge badge-light"></span>
+                    <span class="sr-only">unread messages</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% if is_paginated %}
+<nav aria-label="...">
+
+
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous%}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">First</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a>
+        </li>
+
+
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+        {% elif num > page_obj.number|add:'-1' and num < page_obj.number|add:'1' %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{num}}">{{num}} <span class="sr-only">(current)</span></a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next%}
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+        </li>
+
+        {% endif %}
+    </ul>
+
+    {% endif %}
+</nav>
+
+
+{% endblock %}

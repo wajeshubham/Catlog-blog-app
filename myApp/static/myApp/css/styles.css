@@ -1,0 +1,12 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+
+}
+
+.line{
+    border: 0.01rem solid #838283;
+    width:55rem;
+    margin-left:2.5rem
+
+}

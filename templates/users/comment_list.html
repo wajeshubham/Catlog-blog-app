@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="card promoting-card mt-3">
+
+    <div class="card-body d-flex flex-row">
+        <img src="{{post.author.profile.profile_pic.url}}" class="rounded-circle mr-3" height="50px" width="50px"
+             alt="avatar">
+
+        <div>
+            <h4 class="card-title font-weight-bold mb-2"><a href="{% url 'user_post' post.author %}"
+                                                            style="color:black;">{{post.author}}</a></h4>
+            <p class="card-text">{{post.date | date:"F d, Y"}}</p>
+        </div>
+    </div>
+    <div class="line"></div>
+    <img src="{{post.image.url}}" class="card-img-top" alt="...">
+    <div class="card-body d-flex flex-row ml-4">
+        <h4><a href="{% url 'post_detail' post.pk %}" style="color:black; font-weight:bold">{{post.title}}</a></h4>
+    </div>
+    <div class="card-body ml-4">
+        <p>{{post.content| linebreaksbr}}</p>
+
+    </div>
+
+
+</div>
+<form method="post" class="mt-2">
+    {% csrf_token %}
+    <label style="color:black; font-weight:bold">Comment as {{user}}...</label>
+    <fieldset class="form-group">
+        {{ c_form|crispy }}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Post</button>
+
+    </div>
+</form>
+{% for comment in comments %}
+
+<div class="shadow mb-1 mt-2 bg-white rounded">
+    <div class="card promoting-card mt-3">
+        <div class="overflow-auto">
+            <div class="card-body d-flex flex-row">
+                <img src="{{comment.user.profile.profile_pic.url}}" class="rounded-circle mr-3" height="35px"
+                     width="35px"
+                     alt="avatar">
+                <div>
+                    <h5 class="card-title font-weight-bold mb-2"><a href="#"
+                                                                    style="color:black">{{comment.user}}</a></h5>
+
+                    <p class="card-text">{{comment.date|timesince}} ago</p>
+
+
+                    <h5>{{comment.content| linebreaksbr}}</h5>
+                    <form action="{% url 'comment_likes' comment.pk %}" id="like-form" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-light mr-2" name="post_like" value="{{post.pk}}">
+                            Like <span class="badge badge-light">{{comment.comment_likes.count}}</span>
+                            <span class="sr-only">unread messages</span>
+                        </button>
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock content %}
