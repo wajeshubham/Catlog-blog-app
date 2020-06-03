@@ -148,3 +148,7 @@ def comment_likes(request, **kwargs):
         else:
             comment_liked.comment_likes.add(request.user)
         return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
+
+def about(request):
+    return render(request,"myApp/about.html")

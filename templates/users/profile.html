@@ -54,7 +54,7 @@
             <h4 style="font-weight:bold">{{post.title}}</h4>
         </div>
         <div class="card-body ml-4">
-            <p><h6>{{post.content| linebreaksbr}}</h6></p>
+            <h5>{{post.content| linebreaksbr}}</h5>
         </div>
         <div class="card-body d-flex flex-row ml-4">
             <form action="{% url 'like' post.pk %}" method="post">

@@ -23,7 +23,7 @@
         <h4 style="color:black; font-weight:bold">{{object.title}}</h4>
     </div>
     <div class="card-body ml-4">
-        <p>{{object.content| linebreaksbr}}</p>
+        <h5>{{object.content| linebreaksbr}}</h5>
     </div>
     <div class="card-body d-flex flex-row ml-4">
             <form action="{% url 'like'  object.pk %}" method="post">

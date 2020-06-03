@@ -17,13 +17,12 @@
                 <p class="card-text">{{post.date | date:"F d, Y"}}</p>
             </div>
         </div>
-        <div class="line"></div>
          <img src="{{post.image.url}}" class="card-img-top" alt="...">
         <div class="card-body d-flex flex-row ml-4">
             <h4><a href="{% url 'post_detail' post.pk %}"  style="color:black; font-weight:bold">{{post.title}}</a></h4>
         </div>
         <div class="card-body ml-4">
-            <p>{{post.content| linebreaksbr}}</p>
+            <h5>{{post.content| linebreaksbr}}</h5>
 
         </div>
 
