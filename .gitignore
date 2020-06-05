@@ -1,7 +1,4 @@
 .idea/
-*.jpg
-*.jpeg
-*.png
 
 .env
 .venv
