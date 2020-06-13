@@ -8,6 +8,7 @@ ENV/
 env.bak/
 venv.bak/
 
+
 __pypackages__/
 .scrapy
 __pycache__/
