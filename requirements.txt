@@ -11,7 +11,7 @@ gunicorn==20.0.4
 heroku==0.1.4
 heroku-cli-wrapper==0.0.8
 idna==2.9
-numpy==1.18.3
+numpy==1.22.0
 pandas==1.0.3
 Pillow==7.1.2
 psycopg2==2.8.5
